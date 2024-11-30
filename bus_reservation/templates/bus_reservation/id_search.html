@@ -1,37 +1,86 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>ID Search</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
+            font-size: 18px;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            background-color: #f8f9fa;
+            color: #333;
+            background-image: url('{% static 'bus_reservation/background.jpg' %}');
+            background-size: cover; /* 이미지를 영역에 맞게 크기 조정 */
+            background-position: center; /* 이미지를 가운데 정렬 */
+            background-repeat: no-repeat; /* 반복 방지 */
+            height: 100vh; /* 화면 높이에 맞게 설정 */
+            padding-bottom: 40px; /* 하단 여백 추가 */
         }
 
+        .navbar {
+            background-color: #0056b3; /* 파란색 배경 */
+            padding: 15px 30px; /* 상하, 좌우 패딩 추가 */
+            color: #fff; /* 텍스트 색상 흰색으로 설정 */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+        }
+        
+        .navbar .navbar-brand {
+            font-size: 1.5rem; /* 브랜드 텍스트 크기 조정 */
+            font-weight: bold; /* 굵은 글씨 */
+            color: #fff; /* 텍스트 흰색 */
+            margin-left: 320px; /* 오른쪽으로 320px 이동 */
+        }
+        
+        .navbar-nav .nav-link {
+            color: #fff; /* 네비게이션 링크 색상 흰색 */
+            margin-right: 20px; /* 링크 간격 추가 */
+            font-size: 1rem; /* 폰트 크기 */
+            font-weight: 500; /* 굵기 */
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #ffd700; /* 호버 시 황금색 */
+            text-decoration: underline; /* 밑줄 추가 */
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: #ffd700; /* 활성화된 링크 색상 황금색 */
+            font-weight: bold; /* 굵은 글씨 */
+        }
+
+        /* 컨테이너 스타일 */
         .container {
-            background: #fff;
-            padding: 20px;
+            max-width: 1200px;
+            margin: 40px auto;  /* 상하 여백 늘리기 */
+            padding: 40px;  /* 상하 여백 늘리기 */
+            background-color: #fff;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         .container h1 {
             margin-bottom: 20px;
             color: #333;
+            font-weight: bold;
         }
 
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
         .container input {
             width: 100%;
             padding: 10px;
@@ -48,43 +97,138 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            
         }
 
         .container button:hover {
             background-color: #0056b3;
         }
 
+        .left-panel, .right-panel {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            flex: 1;
+        }
+
+        .btn-container {
+            text-align: center; /* 버튼을 가운데 정렬 */
+            margin-top: 10px;
+        }
+
         .results {
             margin-top: 20px;
             text-align: left;
         }
+    
+        .ticket-header {
+            text-align: center;
+            background-color: #0056b3;
+            color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    
+        .ticket-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 20px 10px;
+        }
+    
+        .qr-section {
+            text-align: center;
+        }
+    
+        .qr-section img {
+            width: 150px;
+            height: 150px;
+        }
+    
+        .qr-section p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    
+        .route-section, .details-section {
+            width: 100%;
+        }
+    
+        .route-section p, .details-section p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+    
+        .details-section {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
+    
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BUS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/main.html">고속버스예매</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/id_search.html">예매정보확인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">운행정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">이용안내</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">고객지원</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <h1>예약 정보 확인</h1>
-        <p>예매 ID를 입력하세요:</p>
-        <input type="text" id="reservation-id" placeholder="예매 ID">
-        <button onclick="searchReservation()">조회</button>
-        <div id="results" class="results"></div>  
-        <button class="back-button" onclick="window.location.href='main.html';">홈으로 돌아가기</button>
-
+        <!-- 왼쪽 패널 -->
+        <div class="left-panel">
+            <h1>예약 정보 확인</h1>
+            <p>예매 ID를 입력하세요:</p>
+            <input type="text" id="reservation-id" placeholder="예매 ID">
+            <button onclick="searchReservation()">조회</button>
+        </div>
+    
+        <!-- 오른쪽 패널 -->
+        <div class="right-panel" id="results">
+            <h2>예약 상세 정보</h2>
+            <p>예매 정보를 입력 후 조회 버튼을 눌러주세요.</p>
+        </div>
     </div>
-
+    
     <script>
         function searchReservation() {
             const reservationId = document.getElementById('reservation-id').value;
             const resultsDiv = document.getElementById('results');
-
+    
             // 초기화
             resultsDiv.innerHTML = '';
-
+    
             if (!reservationId) {
                 resultsDiv.innerHTML = '<p style="color: red;">예매 ID를 입력해주세요.</p>';
                 return;
             }
-
-            // 서버에 요청 보내기 
+    
+            // 서버에 요청 보내기
             fetch(`http://127.0.0.1:8000/api/reservation/${reservationId}`)
                 .then(response => {
                     if (!response.ok) {
@@ -93,14 +237,27 @@
                     return response.json();
                 })
                 .then(data => {
+                    // 정적 파일에서 QR 코드 이미지 URL 가져오기
+                    const qrCodeUrl = "{% static 'bus_reservation/QRcode.jpg' %}";
+
                     // 데이터를 HTML로 표시
                     resultsDiv.innerHTML = `
-                        <h3>예약 상세 정보</h3>
-                        <p><strong>출발지:</strong> ${data.departure}</p>
-                        <p><strong>도착지:</strong> ${data.arrival}</p>
-                        <p><strong>출발 시간:</strong> ${data.departureTime}</p>
-                        <strong>도착 시간:</strong> ${data.arrivalTime}</p>
-                        <p><strong>좌석 번호:</strong> ${data.seatNumber}</p>
+                            <div class="ticket-header">
+                                <h2>${data.date} 출발: ${data.departureTime}</h2>
+                            </div>
+                            <div class="ticket-body">
+                                <div class="qr-section">
+                                    <img src="${qrCodeUrl}" alt="QR Code" />
+                                </div>
+                                <div class="route-section">
+                                    <p><strong>출발지:</strong> ${data.departure} → <strong>도착지:</strong> ${data.arrival}</p>
+                                </div>
+                                <div class="details-section">
+                                    <p><strong>도착 시간:</strong> ${data.arrivalTime}</p>
+                                    <p><strong>등급:</strong> ${data.grade}</p>
+                                    <p><strong>좌석 번호:</strong> ${data.seatNumber}</p>
+                                </div>
+                            </div>
                     `;
                 })
                 .catch(error => {
@@ -108,5 +265,6 @@
                 });
         }
     </script>
+    
 </body>
 </html>

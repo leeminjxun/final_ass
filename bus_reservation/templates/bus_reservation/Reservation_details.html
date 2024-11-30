@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,12 +16,15 @@
         padding: 0;
         background-color: #f8f9fa;
         color: #333;
+        background-image: url('{% static 'bus_reservation/background.jpg' %}');
+        background-size: cover; /* 이미지를 영역에 맞게 크기 조정 */
+        background-position: center; /* 이미지를 가운데 정렬 */
+        background-repeat: no-repeat; /* 반복 방지 */
+        height: 100vh; /* 화면 높이에 맞게 설정 */
+        padding-bottom: 40px; /* 하단 여백 추가 */
     }
 
-    h1 {
-        text-align: center;
-        color: #333;
-    }
+    
 
     /* 스타일 설정 */
     .navbar {
@@ -64,6 +69,13 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
+    .table-container h2 {
+
+      text-align: center;
+      color: #333;
+      font-weight: bold;
+  }
+
     table {
         width: 100%;
         border-collapse: collapse;
@@ -74,6 +86,8 @@
         padding: 10px;
         text-align: center;
         border: 1px solid #ddd;
+        font-size: 18px;
+        font-weight: bold;
     }
 
     table th {
@@ -107,17 +121,17 @@
   <!-- 상단 내비게이션 -->
   <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-          <a class="navbar-brand" href="#">BusSpot</a>
+          <a class="navbar-brand" href="#">BUS</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ms-auto">
                   <li class="nav-item">
-                      <a class="nav-link active" href="#">고속버스예매</a>
+                    <a class="nav-link active" href="/main.html">고속버스예매</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">예매정보확인</a>
+                    <a class="nav-link" href="/id_search.html">예매정보확인</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">운행정보</a>
@@ -133,8 +147,11 @@
       </div>
   </nav>
 
-  <h1>버스 예약 내역</h1>
+  
   <div class="table-container">
+
+    <h2>버스 예약 내역</h2>
+
     <table>
       <thead>
         <tr>
